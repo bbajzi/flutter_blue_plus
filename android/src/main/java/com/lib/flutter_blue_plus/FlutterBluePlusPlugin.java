@@ -1677,8 +1677,12 @@ public class FlutterBluePlusPlugin implements
     {
         log(LogLevel.DEBUG, "disconnectAllDevices("+func+")");
 
+        List<BluetoothGatt> toClose = new ArrayList<>();
+        toClose.addAll(mConnectedDevices.values());
+        toClose.addAll(mCurrentlyConnectingDevices.values());
+
         // request disconnections
-        for (BluetoothGatt gatt : mConnectedDevices.values()) {
+        for (BluetoothGatt gatt : toClose) {
 
             if (func == "adapterTurnOff") {
 
